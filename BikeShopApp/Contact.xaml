@@ -9,10 +9,19 @@
       Title="Contact">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="Sender : " VerticalAlignment="Top" Height="21" Width="62" TextAlignment="Right"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" Text="Message : " VerticalAlignment="Top" Height="24" Width="62" TextAlignment="Right"/>
-        <TextBox Margin="77,30,10,0" TextWrapping="Wrap" Height="21" VerticalAlignment="Top"/>
-        <TextBox Margin="77,66,10,10" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5, 10" TextWrapping="Wrap" Text="Sender :" TextAlignment="Right"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5, 10" TextWrapping="Wrap" Text="Message :" TextAlignment="Right"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="10" TextWrapping="Wrap" />
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="10" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True"/>
 
     </Grid>
 </Page>

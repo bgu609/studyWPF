@@ -25,11 +25,19 @@ namespace BikeShopApp
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EmailSupport_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(
-                new Uri("/Contact.xaml", UriKind.RelativeOrAbsolute)
-                );
+            NavigationService.Navigate(new Uri("/Contact.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/testPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+        private void LiveSupport_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Discussion.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }
