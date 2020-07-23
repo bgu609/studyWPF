@@ -28,12 +28,21 @@
             <TextBox x:Name="txtSearch" Grid.Column="1" Margin="10, 5" KeyDown="txtSearch_KeyDown"/>
         </Grid>
 
-        <DataGrid x:Name="GridProducts" Grid.Row="1" Grid.Column="0" Margin="10, 5, 5, 10">
-            
-        </DataGrid>
+        <DataGrid x:Name="GridProducts" Grid.Row="1" Grid.Column="0" Margin="10, 5, 5, 10" IsReadOnly="True"/>
 
-        <Border Grid.Row="1" Grid.Column="1" Margin="5, 5, 10, 10" BorderBrush="DarkGray" BorderThickness="2" Background="WhiteSmoke">
-            
+        <Border Grid.Row="1" Grid.Column="1" Margin="5, 5, 10, 10" BorderBrush="DarkGray" BorderThickness="2" Background="WhiteSmoke" DataContext="{Binding SelectedItem, ElementName=GridProducts}">
+            <StackPanel Margin="10">
+                <Label Content="Products Details" FontSize="16" FontWeight="ExtraBold" HorizontalAlignment="Center"/>
+                <TextBlock Text="Title"/>
+                <TextBox Text="{Binding Title}"/>
+                <TextBlock Text="Color"/>
+                <TextBox Text="{Binding Color}"/>
+                <Border Background="{Binding Color}" Height="15"/>
+                <TextBlock Text="Price"/>
+                <TextBox Text="{Binding Price}"/>
+                <TextBlock Text="Reference"/>
+                <TextBox Text="{Binding Reference}"/>
+            </StackPanel>
         </Border>
     </Grid>
 </Page>

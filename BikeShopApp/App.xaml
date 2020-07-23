@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:BikeShopApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Button x:Key="button">Hello, World</Button>
+        <SolidColorBrush x:Key="accentBrush" Color="red"/>
+        <!--<ResourceDictionary>
+            <Style x:Key="myMode" TargetType="Window">
+                <Setter Property="Width" Value="1280"/>
+                <Setter Property="Height" Value="720"/>
+            </Style>
+        </ResourceDictionary>-->
     </Application.Resources>
 </Application>
