@@ -60,9 +60,23 @@
 
             <ListBox x:Name="ListBox1" Grid.Column="0" ItemsSource="{Binding}">
                 <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <ItemContainerTemplate>
+                        <StackPanel>
+                            <TextBlock Text="속도"/>
+                            <TextBox Text="{Binding Speed}"/>
+                            <TextBlock Text="색상"/>
+                            <Border Height="10">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Color}"/>
+                                </Border.Background>
+                            </Border>
+                            <TextBox Text="{Binding Color}"/>
+                        </StackPanel>
+                    </ItemContainerTemplate>
+                    <!--<DataTemplate>
                         <TextBlock Text="{Binding Speed}"/>
-                    </DataTemplate>
+                        --><!--<Label Content="{Binding Speed, Converter={StaticResource twiceConv}}"/>--><!--
+                    </DataTemplate>-->
                 </ListBox.ItemTemplate>
                 <!--<Label Content="Element 1"/>
                 <Label Content="Element 2"/>
@@ -71,12 +85,22 @@
                     With some content it's funnier
                 </GroupBox>-->
             </ListBox>
-            <ComboBox Grid.Column="2" Height="60">
-                <Label Content="Element 1"/>
-                <Label Content="Element 2"/>
-                <GroupBox Header="Element 3">
-                    With some content it's funnier
-                </GroupBox>
+            <ComboBox x:Name="ComboBox1" Grid.Column="2" Width="140" Height="100" ItemsSource="{Binding}">
+                <ComboBox.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <StackPanel>
+                            <TextBlock Text="속도"/>
+                            <TextBox Text="{Binding Speed}"/>
+                            <TextBlock Text="색상"/>
+                            <Border Height="10">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Color}"/>
+                                </Border.Background>
+                            </Border>
+                            <TextBox Text="{Binding Color}"/>
+                        </StackPanel>
+                    </ItemContainerTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
         <!--<StackPanel Margin="10">

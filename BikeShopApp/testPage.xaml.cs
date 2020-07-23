@@ -31,16 +31,25 @@ namespace BikeShopApp
 
         private void InitListboxMethod()
         {
+            Random rand = new Random();
+            string[] names = { "aaa", "bbb", "ccc", "ddd", "eee" };
             List<Car> car = new List<Car>();
 
             for (int i = 0; i < 10; i++)
             {
+                byte r = (byte)(25 - i*25);
+                byte g = (byte)(25 * i);
+                byte b = (byte)(0);
+                int idx = rand.Next(names.Length);
                 car.Add(new Car()
                 {
-                    Speed = i * 10
+                    Speed = i * 10,
+                    Color = Color.FromRgb(r,g,b),
+                    //Driver = new Human() { Name = names[idx], HasDrivingLicense = true }
                 });
             }
             ListBox1.DataContext = car;
+            ComboBox1.DataContext = car;
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
