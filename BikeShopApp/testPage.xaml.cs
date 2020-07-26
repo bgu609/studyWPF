@@ -26,9 +26,9 @@ namespace BikeShopApp
         public testPage()
         {
             InitializeComponent();
-            InitListboxMethod();
+            //InitListboxMethod();
         }
-
+        /*
         private void InitListboxMethod()
         {
             Random rand = new Random();
@@ -50,7 +50,7 @@ namespace BikeShopApp
             }
             ListBox1.DataContext = car;
             ComboBox1.DataContext = car;
-        }
+        }*/
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
@@ -64,6 +64,11 @@ namespace BikeShopApp
             car2.Driver = h.Name;
 
             DataContext = car2;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("button click");
         }
 
         /*

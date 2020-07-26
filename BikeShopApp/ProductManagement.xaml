@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:BikeShopApp"
       mc:Ignorable="d" 
       d:DesignHeight="380" d:DesignWidth="800"
+      Background="{DynamicResource background}"
       Title="ProductManagement">
 
     <Grid>
