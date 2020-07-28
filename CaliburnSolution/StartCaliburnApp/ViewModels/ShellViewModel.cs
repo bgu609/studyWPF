@@ -1,14 +1,9 @@
 ﻿using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace StartCaliburnApp.ViewModels
 {
-    class ShellViewModel : PropertyChangedBase
+    class ShellViewModel : PropertyChangedBase, IHaveDisplayName
     {
         string name;
 
@@ -25,7 +20,14 @@ namespace StartCaliburnApp.ViewModels
 
         public bool CanSayHello
         {
-            get => string.IsNullOrEmpty(Name);
+            get => !string.IsNullOrEmpty(Name);
+        }
+
+        public string DisplayName { get; set; }
+
+        public ShellViewModel()
+        {
+            DisplayName = "Basic Caliburn App";
         }
 
         public void SayHello()

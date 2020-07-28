@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StartCaliburnApp"
         mc:Ignorable="d"
-        Title="ShellView" Height="450" Width="800">
-    <Grid>
-        
+        Height="200" Width="300">
+    <Grid Height="80">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="Name" Grid.Row="0" Margin="5"/>
+        <Button x:Name="SayHello" Grid.Row="1" Margin="5"
+                Content="Click" />
     </Grid>
 </Window>

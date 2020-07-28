@@ -1,10 +1,10 @@
 ﻿using Caliburn.Micro;
-using StartCaliburnApp.ViewModels;
+using SecondCaliburnApp.ViewModels;
 using System.Windows;
 
-namespace StartCaliburnApp
+namespace SecondCaliburnApp
 {
-    class Bootstrapper : BootstrapperBase
+    public class Bootstrapper : BootstrapperBase
     {
         public Bootstrapper()
         {
@@ -13,9 +13,7 @@ namespace StartCaliburnApp
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            //base.OnStartup(sender, e);
-
-            DisplayRootViewFor<ButtonsViewModel>();
+            DisplayRootViewFor<ShellViewModel>();
         }
     }
 }
