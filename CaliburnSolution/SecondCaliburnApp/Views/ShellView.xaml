@@ -35,5 +35,22 @@
         <TextBox x:Name="LastName"
                    Width="100" Height="25"
                    Grid.Row="2" Grid.Column="2"/>
+
+        <ComboBox x:Name="People" DisplayMemberPath="FirstName"
+                  SelectedItem="{Binding SelectedPerson}"
+                  Grid.Row="3" Grid.Column="1"/>
+        <TextBlock x:Name="SelectedPerson_LastName"
+                   Grid.Row="3" Grid.Column="2"
+                   Width="100"/>
+        <Button x:Name="ClearName"
+                Grid.Row="4" Grid.Column="1"
+                Height="30" Content="Clear"/>
+        
+        <Button x:Name="LoadPage1" Grid.Row="5" Grid.Column="1"
+                Content="Load Page 1"/>
+        <Button x:Name="LoadPage2" Grid.Row="5" Grid.Column="2"
+                Content="Load Page 2"/>
+
+        <ContentControl x:Name="ActiveItem" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="5"/>
     </Grid>
 </Window>

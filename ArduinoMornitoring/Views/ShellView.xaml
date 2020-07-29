@@ -5,33 +5,113 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArduinoMornitoring.Views"
         mc:Ignorable="d"
-        Height="450" Width="600">
+        xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
+        Height="480" Width="620"
+        MinHeight="480" MinWidth="620">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="299*"/>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <Label Content="파일"/>
-            <Label Content="시뮬레이션"/>
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+            <MenuItem Header="파일" Margin="5, 0, 5, 0">
+                <MenuItem Header="열기"/>
+                <MenuItem Header="저장"/>
+                <Separator/>
+                <MenuItem Header="끝내기"/>
+            </MenuItem>
+            <MenuItem Header="시뮬레이션" Margin="5, 0, 5, 0">
+                <MenuItem Header="시작"/>
+                <MenuItem Header="중지"/>
+            </MenuItem>
+            <MenuItem Header="도움말" Margin="5, 0, 5, 0">
+                <MenuItem Header="정보"/>
+            </MenuItem>
         </Menu>
 
-        <Button Grid.Row="5" Grid.Column="0"
-                Margin="200, 5, 20, 5"
+        <Label Grid.Row="1" Grid.Column="0" Margin="5"
+                   Content="Connection Time : "
+                   VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="80, 8, 10, 8"
+                Text="0" TextAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <GroupBox Grid.Row="2" Grid.Column="0"
+                  Grid.ColumnSpan="2" Margin="5"
+                  Header="PhotoCell">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <ProgressBar x:Name="PhotoCellPGB"
+                             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="2"
+                             Cursor="UpArrow">
+                </ProgressBar>
+
+                <Label Grid.Row="1" Grid.Column="0"
+                       Content="lable1" FontSize="10"
+                       HorizontalContentAlignment="Left"/>
+                <Label Grid.Row="1" Grid.Column="1"
+                       Content="lable2" FontSize="10"
+                       HorizontalContentAlignment="Right"/>
+            </Grid>
+        </GroupBox>
+
+        <ListBox Grid.Row="3" Grid.Column="0"
+                 Grid.ColumnSpan="2" Margin="5">
+        </ListBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="2"
+                  Grid.RowSpan="3" Margin="5"
+                  Header="Port">
+            <StackPanel>
+                <ComboBox x:Name="PortCombo" Margin="5" SelectedItem="{Binding SelectedPort}">
+                    <ComboBoxItem Content="Select Port" Visibility="Collapsed" IsSelected="True"/>
+                </ComboBox>
+                <Button x:Name="ConnectButton" Height="25" Margin="5, 2, 5, 2"
+                        Content="Connect"/>
+                <Button x:Name="DisconnectButton" Height="25" Margin="5, 2, 5, 2"
+                        Content="Disconnect"/>
+                <Button x:Name="COMButton" Height="50" Margin="5, 2, 5, 2"
+                        Content="COM"/>
+            </StackPanel>
+        </GroupBox>
+
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
+            <d3:Chart BottomTitle="Argument" LeftTitle="Function">
+                <d3:LineGraph x:Name="linegraph" Description="Simple linegraph" Stroke="Blue" StrokeThickness="3"/>
+            </d3:Chart>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="275"/>
+                <ColumnDefinition Width="175"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="1" Margin="200, 5, 5, 5"
                 Content="View All"/>
 
-        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-                Margin="20, 5, 200, 5"
-                Content="Zomm"/>
+            <Button Grid.Column="2" Margin="5, 5, 100, 5"
+                Content="Zoom"/>
+        </Grid>
     </Grid>
 </Window>
