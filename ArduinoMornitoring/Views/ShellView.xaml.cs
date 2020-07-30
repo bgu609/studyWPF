@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO.Ports;
 using System.Linq;
 using System.Windows;
 
@@ -14,7 +13,6 @@ namespace ArduinoMornitoring.Views
         {
             InitializeComponent();
             Graph_Sample();
-            //InitControls();
         }
 
         private void Graph_Sample()
@@ -24,7 +22,15 @@ namespace ArduinoMornitoring.Views
 
             linegraph.Plot(x, y);
         }
-        
-        
+        /*
+        private void InitControls()
+        {
+            foreach (var item in SerialPort.GetPortNames())
+            {
+                Ports.Items.Add(item);
+            }
+
+            ConnectButton.IsEnabled = DisconnectButton.IsEnabled = false;
+        }*/
     }
 }
