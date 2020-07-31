@@ -11,5 +11,10 @@ namespace ThirdCaliburnApp
         {
             
         }
+
+        private void Salary_PreviewTextInput(object sender, NumericInput input)
+        {
+
+        }
     }
 }

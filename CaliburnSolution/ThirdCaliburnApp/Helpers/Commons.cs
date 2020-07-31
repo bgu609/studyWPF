@@ -14,7 +14,23 @@
                                                     "       Destination " +
                                                     "  FROM employeestbl ";
 
-            public static string INSERT_EMPLOYEES = "";
+            public static string MAX_INDEX_GET = "SELECT MAX(id) FROM employeestbl";
+
+            public static string INSERT_EMPLOYEES = "INSERT INTO employeestbl " +
+                                                    "            ( " +
+                                                    "               id, " +
+                                                    "               EmpName, " +
+                                                    "               Salary, " +
+                                                    "               DeptName, " +
+                                                    "               Destination) " +
+                                                    "       VALUES " +
+                                                    "            ( " +
+                                                    "               @id, " +
+                                                    "               @EmpName, " +
+                                                    "               @Salary, " +
+                                                    "               @DeptName, " +
+                                                    "               @Destination " +
+                                                    "            ) ";
 
             public static string UPDATE_EMPLOYEES = "UPDATE employeestbl " +
                                                     "   SET EmpName = @EmpName, " +
@@ -22,6 +38,8 @@
                                                     "       DeptName = @DeptName, " +
                                                     "       Destination = @Destination " +
                                                     " WHERE id = @id; ";
+
+            public static string DELETE_EMPLOYEES = "DELETE FROM employeestbl WHERE id = @id ";
         }
     }
 }

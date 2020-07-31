@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO.Ports;
 using System.Windows.Forms;
+using ArduinoMornitoring.Views;
 using Caliburn.Micro;
-using ArduinoMornitoring.Models;
-
 
 namespace ArduinoMornitoring.ViewModels
 {
     public class ShellViewModel : Conductor<object>
     {
+        //ShellView shellView = new ShellView();
         SerialPort serial;
         Timer timer = new Timer();
         Random rand = new Random();
@@ -69,10 +69,22 @@ namespace ArduinoMornitoring.ViewModels
             }
         }
 
-        public BindableCollection<ShellModel> Ports { get; set; }
+        bool selectmode;
+        public bool SelectMode
+        {
+            get => selectmode;
+            set
+            {
+                selectmode = value;
 
-        private ShellModel selectedport;
-        public ShellModel SelectedPort
+                NotifyOfPropertyChange(() => SelectMode);
+            }
+        }
+
+        public BindableCollection<ComboBoxModel> Ports { get; set; }
+
+        private ComboBoxModel selectedport;
+        public ComboBoxModel SelectedPort
         {
             get => selectedport;
             set
@@ -86,38 +98,50 @@ namespace ArduinoMornitoring.ViewModels
             }
         }
 
+
+
+
         public ShellViewModel()
         {
             DisplayName = "Arduino Mornitoring App";
-
-            Ports = new BindableCollection<ShellModel>();
-            InitControls(Ports);
+            InitControls();
         }
 
 
 
-        public void InitControls(BindableCollection<ShellModel> Ports)
+
+        public void InitControls()
         {
             ConnectTime = "연결 시간 : ";
             DisconnectTime = "중단 시간 : ";
+            SelectMode = true;
 
+            Ports = new BindableCollection<ComboBoxModel>();
+
+            Ports.Add(new ComboBoxModel { PortName = "Select Port"/*, Visiblity = 3, IsSelected = true*/ });
             foreach (var item in SerialPort.GetPortNames())
             {
-                Ports.Add(new ShellModel { PortName = item });
+                Ports.Add(new ComboBoxModel { PortName = item });
             }
         }
 
         public void Serial_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string sVal = serial.ReadLine();
-            //this.BeginInvoke(new Action(delegate { DisplayValue(sVal); }));
+            //DisplayValue(sVal);
         }
 
 
 
+        public bool CanPorts
+        {
+            get => string.IsNullOrEmpty(PortName) || !ConnectMode;
+        }
+
         public bool CanConnectButton
         {
-            get => !string.IsNullOrEmpty(PortName) && !ConnectMode;
+            get => (!string.IsNullOrEmpty(PortName) && !(PortName == "Select Port"))
+                && !ConnectMode;
         }
 
         public bool CanDisconnectButton
@@ -132,8 +156,11 @@ namespace ArduinoMornitoring.ViewModels
             ConnectTime = $"연결 시간 : {DateTime.Now:yyyy-MM-dd hh:mm:ss}";
             DisconnectTime = "중단 시간 : ";
             ConnectMode = true;
+            SelectMode = false;
 
             NotifyOfPropertyChange(() => CanDisconnectButton);
+            NotifyOfPropertyChange(() => CanPorts);
+            NotifyOfPropertyChange(() => SelectMode);
         }
 
         public void DisconnectButton()
@@ -142,8 +169,11 @@ namespace ArduinoMornitoring.ViewModels
 
             DisconnectTime = $"중단 시간 : {DateTime.Now:yyyy-MM-dd hh:mm:ss}";
             ConnectMode = false;
+            SelectMode = true;
 
             NotifyOfPropertyChange(() => CanConnectButton);
+            NotifyOfPropertyChange(() => CanPorts);
+            NotifyOfPropertyChange(() => SelectMode);
         }
     }
 }

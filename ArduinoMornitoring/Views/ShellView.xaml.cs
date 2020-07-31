@@ -13,6 +13,9 @@ namespace ArduinoMornitoring.Views
         {
             InitializeComponent();
             Graph_Sample();
+            //InitControls();
+
+            int getidx = Combo.SelectedIndex;
         }
 
         private void Graph_Sample()
@@ -22,15 +25,14 @@ namespace ArduinoMornitoring.Views
 
             linegraph.Plot(x, y);
         }
-        /*
-        private void InitControls()
-        {
-            foreach (var item in SerialPort.GetPortNames())
-            {
-                Ports.Items.Add(item);
-            }
 
-            ConnectButton.IsEnabled = DisconnectButton.IsEnabled = false;
-        }*/
+
+        //public void InitControls()
+        //{
+        //    foreach (var item in SerialPort.GetPortNames())
+        //    {
+        //        Ports.Items.Add(item);
+        //    }
+        //}
     }
 }

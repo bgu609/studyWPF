@@ -85,7 +85,8 @@
                   Grid.RowSpan="3" Margin="5"
                   Header="Port">
             <StackPanel>
-                <ComboBox Margin="5" x:Name="Ports" DisplayMemberPath="PortName">
+                <ComboBox x:Name="Combo" Margin="5" SelectedItem="{Binding SelectedPort}" ItemsSource="{Binding Ports}"
+                          DisplayMemberPath="PortName" IsEnabled="{Binding SelectMode}" SelectedIndex="0">
                     <!--<ComboBoxItem Content="Select Port" Visibility="Collapsed" IsSelected ="True"/>-->
                 </ComboBox>
                 <Button x:Name="ConnectButton" Height="25" Margin="5, 2, 5, 2"
