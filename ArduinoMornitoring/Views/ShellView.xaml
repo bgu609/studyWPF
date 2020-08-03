@@ -14,7 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="80"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
@@ -32,7 +32,7 @@
                 <Separator/>
                 <MenuItem Header="끝내기"/>
             </MenuItem>
-            <MenuItem Header="시뮬레이션" Margin="5, 0, 5, 0">
+            <MenuItem Header="시뮬레이션" Margin="5, 0, 5, 0" HorizontalContentAlignment="Left">
                 <MenuItem x:Name="SimulStart" Header="시작"/>
                 <MenuItem x:Name="SimulStop" Header="중지"/>
             </MenuItem>
@@ -46,7 +46,7 @@
             <Label x:Name="DisconnectTime" Margin="5, 0, 5, 0"/>
         </StackPanel>
         
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="80, 8, 10, 8"
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="80, 12, 10, 12"
                  Text="{Binding TxtSensorCount}" IsReadOnly="True"
                  TextAlignment="Center" VerticalContentAlignment="Center"/>
 
@@ -79,18 +79,15 @@
             </Grid>
         </GroupBox>
 
-        <RichTextBox Grid.Row="3" Grid.Column="0"
-                     Grid.ColumnSpan="2" Margin="5"
-                     >
-            
-        </RichTextBox>
+        <ListBox x:Name="LogList" Grid.Row="3" Grid.Column="0"
+                 Grid.ColumnSpan="2" Margin="5" ItemsSource="{Binding Logs}" SelectedIndex="-1" />
 
         <GroupBox Grid.Row="1" Grid.Column="2"
                   Grid.RowSpan="3" Margin="5"
                   Header="Port">
             <StackPanel>
                 <ComboBox x:Name="Combo" Margin="5" SelectedItem="{Binding SelectedPort}" ItemsSource="{Binding Ports}"
-                          IsEnabled="{Binding SelectMode}" SelectedIndex="0"/>
+                          IsEnabled="{Binding SelectMode}" SelectedIndex="0" HorizontalContentAlignment="Center"/>
                 <Button x:Name="ConnectButton" Height="25" Margin="5, 2, 5, 2"
                         Content="Connect"/>
                 <Button x:Name="DisconnectButton" Height="25" Margin="5, 2, 5, 2"

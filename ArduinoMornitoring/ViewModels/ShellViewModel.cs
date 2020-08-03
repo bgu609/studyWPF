@@ -1,12 +1,11 @@
-﻿using System;
+﻿using ArduinoMornitoring.Models;
+using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using ArduinoMornitoring.Models;
-using Caliburn.Micro;
 
 namespace ArduinoMornitoring.ViewModels
 {
@@ -123,6 +122,7 @@ namespace ArduinoMornitoring.ViewModels
         }
 
         public BindableCollection<ComboBoxItem> Ports { get; set; }
+        public BindableCollection<ListBoxItem> Logs { get; set; }
 
         private ComboBoxItem selectedport;
         public ComboBoxItem SelectedPort
@@ -137,6 +137,17 @@ namespace ArduinoMornitoring.ViewModels
 
                 NotifyOfPropertyChange(() => SelectedPort);
                 NotifyOfPropertyChange(() => CanConnectButton);
+            }
+        }
+
+        private ListBoxItem selectedlog;
+        public ListBoxItem SelectedLog
+        {
+            get => selectedlog;
+            set
+            {
+                selectedlog = value;
+                NotifyOfPropertyChange(() => SelectedLog);
             }
         }
 
@@ -170,6 +181,7 @@ namespace ArduinoMornitoring.ViewModels
             IsSimulation = false;
 
             Ports = new BindableCollection<ComboBoxItem>();
+            Logs = new BindableCollection<ListBoxItem>();
 
             ComboBoxItem comboBoxItem = new ComboBoxItem();
             comboBoxItem.Content = "Select Port";
@@ -194,7 +206,6 @@ namespace ArduinoMornitoring.ViewModels
 
         public void DisplayValue(string sVal)
         {
-            System.Windows.Forms.RichTextBox RtbLog = new System.Windows.Forms.RichTextBox();
             try
             {
                 ushort v = ushort.Parse(sVal);
@@ -208,9 +219,10 @@ namespace ArduinoMornitoring.ViewModels
                 TxtSensorCount = photoDatas.Count.ToString();
                 PgbPhotoRegistor = v;
 
-                string item = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}\t{v}";
-                RtbLog.AppendText($"{item}\n");
-                RtbLog.ScrollToCaret();
+                ListBoxItem RtbLog = new ListBoxItem();
+                RtbLog.Content = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}\t{sVal}\n";
+                RtbLog.IsSelected = true;
+                Logs.Add(RtbLog);
 
                 //ChtSensorValues.Series[0].Points.Add(v);
 
@@ -231,11 +243,17 @@ namespace ArduinoMornitoring.ViewModels
 
                 NotifyOfPropertyChange(() => TxtSensorCount);
                 NotifyOfPropertyChange(() => PortValue);
+                NotifyOfPropertyChange(() => SelectedLog);
             }
             catch (Exception ex)
             {
-                RtbLog.AppendText($"Error : {ex.Message}\n");
-                RtbLog.ScrollToCaret();
+                ListBoxItem RtbLog = new ListBoxItem();
+                RtbLog.Content = $"Error : {ex.Message}\n";
+                RtbLog.IsSelected = true;
+                Logs.Add(RtbLog);
+                //Logs.ScrollToCaret();
+
+                NotifyOfPropertyChange(() => SelectedLog);
             }
         }
 
