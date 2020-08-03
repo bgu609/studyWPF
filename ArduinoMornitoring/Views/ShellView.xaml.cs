@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ArduinoMornitoring.Views
 {
@@ -13,9 +14,6 @@ namespace ArduinoMornitoring.Views
         {
             InitializeComponent();
             Graph_Sample();
-            //InitControls();
-
-            int getidx = Combo.SelectedIndex;
         }
 
         private void Graph_Sample()
@@ -25,14 +23,5 @@ namespace ArduinoMornitoring.Views
 
             linegraph.Plot(x, y);
         }
-
-
-        //public void InitControls()
-        //{
-        //    foreach (var item in SerialPort.GetPortNames())
-        //    {
-        //        Ports.Items.Add(item);
-        //    }
-        //}
     }
 }

@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         Height="500" Width="620"
-        MinHeight="500" MinWidth="620">
+        MinHeight="500" MinWidth="620"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -32,8 +33,8 @@
                 <MenuItem Header="끝내기"/>
             </MenuItem>
             <MenuItem Header="시뮬레이션" Margin="5, 0, 5, 0">
-                <MenuItem Header="시작"/>
-                <MenuItem Header="중지"/>
+                <MenuItem x:Name="SimulStart" Header="시작"/>
+                <MenuItem x:Name="SimulStop" Header="중지"/>
             </MenuItem>
             <MenuItem Header="도움말" Margin="5, 0, 5, 0">
                 <MenuItem Header="정보"/>
@@ -46,7 +47,7 @@
         </StackPanel>
         
         <TextBox Grid.Row="1" Grid.Column="1" Margin="80, 8, 10, 8"
-                 Text="0" IsReadOnly="True"
+                 Text="{Binding TxtSensorCount}" IsReadOnly="True"
                  TextAlignment="Center" VerticalContentAlignment="Center"/>
 
         <GroupBox Grid.Row="2" Grid.Column="0"
@@ -65,7 +66,8 @@
                 <ProgressBar x:Name="PhotoCellPGB"
                              Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="2"
                              Cursor="UpArrow"
-                             Minimum="0" Maximum="{Binding MaxPhotoVal}">
+                             Minimum="0" Maximum="{Binding MaxPhotoVal}"
+                             Value="{Binding PgbPhotoRegistor}">
                 </ProgressBar>
 
                 <Label Grid.Row="1" Grid.Column="0"
@@ -77,18 +79,18 @@
             </Grid>
         </GroupBox>
 
-        <ListBox Grid.Row="3" Grid.Column="0"
-                 Grid.ColumnSpan="2" Margin="5">
-        </ListBox>
+        <RichTextBox Grid.Row="3" Grid.Column="0"
+                     Grid.ColumnSpan="2" Margin="5"
+                     >
+            
+        </RichTextBox>
 
         <GroupBox Grid.Row="1" Grid.Column="2"
                   Grid.RowSpan="3" Margin="5"
                   Header="Port">
             <StackPanel>
                 <ComboBox x:Name="Combo" Margin="5" SelectedItem="{Binding SelectedPort}" ItemsSource="{Binding Ports}"
-                          DisplayMemberPath="PortName" IsEnabled="{Binding SelectMode}" SelectedIndex="0">
-                    <!--<ComboBoxItem Content="Select Port" Visibility="Collapsed" IsSelected ="True"/>-->
-                </ComboBox>
+                          IsEnabled="{Binding SelectMode}" SelectedIndex="0"/>
                 <Button x:Name="ConnectButton" Height="25" Margin="5, 2, 5, 2"
                         Content="Connect"/>
                 <Button x:Name="DisconnectButton" Height="25" Margin="5, 2, 5, 2"
@@ -103,7 +105,7 @@
                         <TextBlock Grid.Row="0" Text="{Binding PortName}"
                                    FontWeight="Heavy"
                                    HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
-                        <TextBlock Grid.Row="1" Text="number"
+                        <TextBlock Grid.Row="1" Text="{Binding PortValue}"
                                    FontWeight="Heavy" FontSize="16"
                                    HorizontalAlignment="Center"  VerticalAlignment="Center" TextAlignment="Center"/>
                     </Grid>
@@ -112,7 +114,7 @@
         </GroupBox>
 
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
-            <d3:Chart BottomTitle="Argument" LeftTitle="Function">
+            <d3:Chart x:Name="ChtSensorValues" BottomTitle="Argument" LeftTitle="Function">
                 <d3:LineGraph x:Name="linegraph" Description="Simple linegraph" Stroke="Blue" StrokeThickness="3"/>
             </d3:Chart>
         </Grid>
