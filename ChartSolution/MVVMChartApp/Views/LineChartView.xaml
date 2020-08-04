@@ -10,7 +10,7 @@
     <Grid>
         <lvc:CartesianChart Margin="30">
             <lvc:CartesianChart.Series>
-                <lvc:LineSeries Values="{Binding LineValues}" DataLabels="True"/>
+                <lvc:LineSeries Values="{Binding LineValues}" DataLabels="True" />
             </lvc:CartesianChart.Series>
         </lvc:CartesianChart>
     </Grid>

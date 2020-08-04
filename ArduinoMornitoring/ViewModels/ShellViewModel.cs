@@ -1,8 +1,12 @@
 ﻿using ArduinoMornitoring.Models;
 using Caliburn.Micro;
+using InteractiveDataDisplay.WPF;
+using LiveCharts;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -16,6 +20,11 @@ namespace ArduinoMornitoring.ViewModels
         Random rand = new Random();
         List<SensorDataModel> photoDatas = new List<SensorDataModel>();
         private short xCount = 200;
+
+        string strConnString = "Server=localhost;Port=3306;" +
+            "Database=iot_sensordata;Uid=root;Pwd=mysql_p@ssw0rd";
+
+        private string tempPortName;
 
         readonly short maxPhotoVal = 1023;
         public short MaxPhotoVal
@@ -44,6 +53,7 @@ namespace ArduinoMornitoring.ViewModels
                 portname = value;
 
                 NotifyOfPropertyChange(() => PortName);
+                NotifyOfPropertyChange(() => CanConnectButton);
             }
         }
 
@@ -68,6 +78,8 @@ namespace ArduinoMornitoring.ViewModels
                 issimulation = value;
 
                 NotifyOfPropertyChange(() => IsSimulation);
+                NotifyOfPropertyChange(() => CanConnectButton);
+                NotifyOfPropertyChange(() => CanDisconnectButton);
             }
         }
 
@@ -163,6 +175,18 @@ namespace ArduinoMornitoring.ViewModels
             }
         }
 
+        ChartValues<double> lineValues { get; set; }
+
+        public ChartValues<double> LineValues
+        {
+            get => lineValues;
+            set
+            {
+                lineValues = value;
+                NotifyOfPropertyChange(() => LineValues);
+            }
+        }
+
 
 
 
@@ -182,6 +206,7 @@ namespace ArduinoMornitoring.ViewModels
 
             Ports = new BindableCollection<ComboBoxItem>();
             Logs = new BindableCollection<ListBoxItem>();
+            LineValues = new ChartValues<double>();
 
             ComboBoxItem comboBoxItem = new ComboBoxItem();
             comboBoxItem.Content = "Select Port";
@@ -214,16 +239,17 @@ namespace ArduinoMornitoring.ViewModels
 
                 SensorDataModel data = new SensorDataModel();
                 photoDatas.Add(data);
-                //InsertDataToDB(data);
+                InsertDataToDB(data);
 
                 TxtSensorCount = photoDatas.Count.ToString();
                 PgbPhotoRegistor = v;
 
                 ListBoxItem RtbLog = new ListBoxItem();
-                RtbLog.Content = $"{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}\t{sVal}\n";
+                RtbLog.Content = $"{DateTime.Now:yyyy-MM-dd hh:mm:ss}\t{sVal}\n";
                 RtbLog.IsSelected = true;
                 Logs.Add(RtbLog);
 
+                #region chart code
                 //ChtSensorValues.Series[0].Points.Add(v);
 
                 //ChtSensorValues.ChartAreas[0].AxisX.Minimum = 0;
@@ -235,6 +261,9 @@ namespace ArduinoMornitoring.ViewModels
                 //        photoDatas.Count - xCount, photoDatas.Count);
                 //else
                 //    ChtSensorValues.ChartAreas[0].AxisX.ScaleView.Zoom(0, xCount);
+
+                LineValues.Add(v);
+                #endregion
 
                 if (IsSimulation == false)
                     PortValue = $"{serial.PortName}\n{sVal}";
@@ -257,9 +286,33 @@ namespace ArduinoMornitoring.ViewModels
             }
         }
 
+        private void InsertDataToDB(SensorDataModel data)
+        {
+            string strQuery = "INSERT INTO sensordatatbl " +
+                " (Date, Value) " +
+                " VALUES " +
+                " (@Date, @Value) ";
+
+            using (MySqlConnection conn = new MySqlConnection(strConnString))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(strQuery, conn);
+                MySqlParameter paramDate = new MySqlParameter("@Date", MySqlDbType.DateTime)
+                {
+                    Value = data.Date
+                };
+                cmd.Parameters.Add(paramDate);
+                MySqlParameter paramValue = new MySqlParameter("@Value", MySqlDbType.Int32)
+                {
+                    Value = data.Value
+                };
+                cmd.Parameters.Add(paramValue);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public void SimulStart(object sender, EventArgs e)
         {
-            IsSimulation = true;
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -269,9 +322,15 @@ namespace ArduinoMornitoring.ViewModels
             {
                 DisconnectButton();
             }
-            PortName = "Simulation";
 
+            tempPortName = PortName;
+            PortName = "Simulation";
+            IsSimulation = true;
+            SelectMode = false;
+
+            NotifyOfPropertyChange(() => PortName);
             NotifyOfPropertyChange(() => IsSimulation);
+            NotifyOfPropertyChange(() => SelectMode);
         }
 
         public void Timer_Tick(object sender, EventArgs e)
@@ -284,8 +343,12 @@ namespace ArduinoMornitoring.ViewModels
         {
             timer.Stop();
             IsSimulation = false;
+            SelectMode = true;
+            PortName = tempPortName;
 
+            NotifyOfPropertyChange(() => PortName);
             NotifyOfPropertyChange(() => IsSimulation);
+            NotifyOfPropertyChange(() => SelectMode);
         }
 
 
@@ -294,20 +357,22 @@ namespace ArduinoMornitoring.ViewModels
 
 
 
-        public bool CanPorts
-        {
-            get => string.IsNullOrEmpty(PortName) || !ConnectMode;
-        }
+        //public bool CanPorts
+        //{
+        //    get => string.IsNullOrEmpty(PortName) || !ConnectMode && !IsSimulation;
+        //}
 
         public bool CanConnectButton
         {
             get => (!string.IsNullOrEmpty(PortName) && !(PortName == "Select Port"))
-                && !ConnectMode;
+                && !ConnectMode
+                && !IsSimulation;
         }
 
         public bool CanDisconnectButton
         {
-            get => !string.IsNullOrEmpty(PortName) && ConnectMode;
+            get => !string.IsNullOrEmpty(PortName) && ConnectMode
+                && !IsSimulation;
         }
 
         public void ConnectButton()
@@ -320,7 +385,7 @@ namespace ArduinoMornitoring.ViewModels
             SelectMode = false;
 
             NotifyOfPropertyChange(() => CanDisconnectButton);
-            NotifyOfPropertyChange(() => CanPorts);
+            //NotifyOfPropertyChange(() => CanPorts);
             NotifyOfPropertyChange(() => SelectMode);
         }
 
@@ -333,8 +398,37 @@ namespace ArduinoMornitoring.ViewModels
             SelectMode = true;
 
             NotifyOfPropertyChange(() => CanConnectButton);
-            NotifyOfPropertyChange(() => CanPorts);
+            //NotifyOfPropertyChange(() => CanPorts);
             NotifyOfPropertyChange(() => SelectMode);
+        }
+
+
+
+        public void Open()
+        {
+            System.Windows.MessageBox.Show("미구현 메뉴 버튼 (Open)");
+        }
+
+        public void Save()
+        {
+            System.Windows.MessageBox.Show("미구현 메뉴 버튼 (Save)");
+        }
+
+        public void Exit()
+        {
+            serial.Close();
+
+            Environment.Exit(0);
+        }
+
+        public void ViewAll()
+        {
+            System.Windows.MessageBox.Show("미구현 버튼 (ViewAll)");
+        }
+
+        public void Zoom()
+        {
+            System.Windows.MessageBox.Show("미구현 버튼 (Zoom)");
         }
     }
 }

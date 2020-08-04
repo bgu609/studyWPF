@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ArduinoMornitoring.Views"
         mc:Ignorable="d"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Height="500" Width="620"
         MinHeight="500" MinWidth="620"
         WindowStartupLocation="CenterScreen">
@@ -27,10 +28,10 @@
 
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
             <MenuItem Header="파일" Margin="5, 0, 5, 0">
-                <MenuItem Header="열기"/>
-                <MenuItem Header="저장"/>
+                <MenuItem x:Name="Open" Header="열기"/>
+                <MenuItem x:Name="Save" Header="저장"/>
                 <Separator/>
-                <MenuItem Header="끝내기"/>
+                <MenuItem x:Name="Exit" Header="끝내기"/>
             </MenuItem>
             <MenuItem Header="시뮬레이션" Margin="5, 0, 5, 0" HorizontalContentAlignment="Left">
                 <MenuItem x:Name="SimulStart" Header="시작"/>
@@ -80,7 +81,7 @@
         </GroupBox>
 
         <ListBox x:Name="LogList" Grid.Row="3" Grid.Column="0"
-                 Grid.ColumnSpan="2" Margin="5" ItemsSource="{Binding Logs}" SelectedIndex="-1" />
+                 Grid.ColumnSpan="2" Margin="5" ItemsSource="{Binding Logs}" />
 
         <GroupBox Grid.Row="1" Grid.Column="2"
                   Grid.RowSpan="3" Margin="5"
@@ -111,9 +112,14 @@
         </GroupBox>
 
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
-            <d3:Chart x:Name="ChtSensorValues" BottomTitle="Argument" LeftTitle="Function">
-                <d3:LineGraph x:Name="linegraph" Description="Simple linegraph" Stroke="Blue" StrokeThickness="3"/>
-            </d3:Chart>
+            <!--<d3:Chart x:Name="ChtSensorValues" BottomTitle="Argument" LeftTitle="Function">
+                <d3:LineGraph x:Name="LineGraph" Description="Simple linegraph" Stroke="Blue" StrokeThickness="3"/>
+            </d3:Chart>-->
+            <lvc:CartesianChart Margin="10">
+                <lvc:CartesianChart.Series>
+                    <lvc:LineSeries Values="{Binding LineValues}" DataLabels="True" />
+                </lvc:CartesianChart.Series>
+            </lvc:CartesianChart>
         </Grid>
 
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
@@ -124,11 +130,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <Button Grid.Column="1" Margin="200, 5, 5, 5"
-                Content="View All"/>
+            <Button x:Name="ViewAll" Grid.Column="1" Margin="200, 5, 5, 5"
+                    Content="View All"/>
 
-            <Button Grid.Column="2" Margin="5, 5, 100, 5"
-                Content="Zoom"/>
+            <Button x:Name="Zoom" Grid.Column="2" Margin="5, 5, 100, 5"
+                    Content="Zoom"/>
         </Grid>
     </Grid>
 </Window>

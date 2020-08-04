@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace ArduinoMornitoring.Views
 {
@@ -13,15 +12,20 @@ namespace ArduinoMornitoring.Views
         public ShellView()
         {
             InitializeComponent();
-            Graph_Sample();
+            //Graph_Sample();
+
+            LogList.SelectedIndex = LogList.Items.Count - 1;
+            LogList.SelectedIndex = -1;
+
+            
         }
 
-        private void Graph_Sample()
-        {
-            var x = Enumerable.Range(0, 1001).Select(i => i / 10.0).ToArray();
-            var y = x.Select(v => Math.Abs(v) < 1e-10 ? 1 : Math.Sin(v) / v).ToArray();
+        //private void Graph_Sample()
+        //{
+        //    var x = Enumerable.Range(0, 1001).Select(i => i / 10.0).ToArray();
+        //    var y = x.Select(v => Math.Abs(v) < 1e-10 ? 1 : Math.Sin(v) / v).ToArray();
 
-            linegraph.Plot(x, y);
-        }
+        //    LineGraph.Plot(x, y);
+        //}
     }
 }
