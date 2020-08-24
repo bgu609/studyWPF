@@ -2,7 +2,9 @@
 using Prism.Unity;
 using System.Windows;
 using FirstPrismApp.Views;
-
+using Prism.Modularity;
+using Prism.Mvvm;
+using FirstPrismApp.ViewModels;
 
 namespace FirstPrismApp
 {
@@ -19,6 +21,18 @@ namespace FirstPrismApp
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
+        }
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<SubModule.ModuleLoader>();
+        }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+
+            ViewModelLocationProvider.Register<MainView, MainViewModel>();
         }
     }
 }

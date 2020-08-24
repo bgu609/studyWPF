@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstPrismApp", "FirstPrism
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundWorker", "BackgroundWorker\BackgroundWorker.csproj", "{C82179E2-9073-4AFC-BD23-7ED9CDFF0CE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundWorkerCore", "BackgroundWorkerCore\BackgroundWorkerCore.csproj", "{E1C69722-8DC7-4201-96C6-40730E65E78B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundWorkerCore", "BackgroundWorkerCore\BackgroundWorkerCore.csproj", "{E1C69722-8DC7-4201-96C6-40730E65E78B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BogusMQTTWinPublishApp", "BogusMQTTWinPublishApp\BogusMQTTWinPublishApp.csproj", "{7E978DCB-2EE5-4506-8978-7573D4D27298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubModule", "SubModule\SubModule.csproj", "{FA1C1434-55FE-4890-8A72-B6A4D1685928}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7E978DCB-2EE5-4506-8978-7573D4D27298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E978DCB-2EE5-4506-8978-7573D4D27298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E978DCB-2EE5-4506-8978-7573D4D27298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA1C1434-55FE-4890-8A72-B6A4D1685928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA1C1434-55FE-4890-8A72-B6A4D1685928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA1C1434-55FE-4890-8A72-B6A4D1685928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA1C1434-55FE-4890-8A72-B6A4D1685928}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
