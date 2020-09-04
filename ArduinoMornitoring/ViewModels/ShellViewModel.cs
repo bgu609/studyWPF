@@ -22,7 +22,7 @@ namespace ArduinoMornitoring.ViewModels
         private short xCount = 200;
 
         string strConnString = "Server=localhost;Port=3306;" +
-            "Database=iot_sensordata;Uid=root;Pwd=mysql_p@ssw0rd";
+            "Database=iot_sensordata;Uid=root;Pwd=epfls+358471";
 
         private string tempPortName;
 

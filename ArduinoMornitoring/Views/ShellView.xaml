@@ -112,14 +112,14 @@
         </GroupBox>
 
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="5">
-            <!--<d3:Chart x:Name="ChtSensorValues" BottomTitle="Argument" LeftTitle="Function">
+            <d3:Chart x:Name="ChtSensorValues" BottomTitle="Argument" LeftTitle="Function">
                 <d3:LineGraph x:Name="LineGraph" Description="Simple linegraph" Stroke="Blue" StrokeThickness="3"/>
-            </d3:Chart>-->
-            <lvc:CartesianChart Margin="10">
+            </d3:Chart>
+            <!--<lvc:CartesianChart x:Name="LineGraph" Margin="10">
                 <lvc:CartesianChart.Series>
                     <lvc:LineSeries Values="{Binding LineValues}" DataLabels="True" />
                 </lvc:CartesianChart.Series>
-            </lvc:CartesianChart>
+            </lvc:CartesianChart>-->
         </Grid>
 
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
