@@ -1,0 +1,30 @@
+﻿<Window x:Class="DiscordBotApp.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header=" " Margin="5, 0, 5, 0">
+                <MenuItem Header="{Binding Menu_Login}" Command="{Binding Login_Click}"/>
+                <MenuItem Header=" "/>
+                <Separator/>
+                <MenuItem Header="끝내기" Command="{Binding Exit_Click}"/>
+            </MenuItem>
+            <MenuItem Header=" " Margin="5, 0, 5, 0">
+                <MenuItem Header=" "/>
+            </MenuItem>
+            <MenuItem Header="도움말" Margin="5, 0, 5, 0">
+                <MenuItem Header="정보" Command="{Binding About_Click}"/>
+            </MenuItem>
+        </Menu>
+        
+        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegion"/>
+    </Grid>
+</Window>

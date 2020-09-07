@@ -8,20 +8,20 @@
         mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800">
     <DockPanel>
-        <!--<StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
             <Button Content="Activate ViewA" FontSize="16" Click="Button_Click" />
             <Button Content="Deactivate ViewA" FontSize="16" Click="Button_Click_1" />
             <Button Content="Activate ViewB" FontSize="16" Click="Button_Click_2" />
             <Button Content="Deactivate ViewB" FontSize="16" Click="Button_Click_3" />
-        </StackPanel>-->
-        <!--<ContentControl prism:RegionManager.RegionName="ContentRegion" />-->
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        </StackPanel>
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <CheckBox IsChecked="{Binding IsEnabled}" Content="CanExecute" Margin="10"/>
             <Button Command="{Binding ExecuteCommand}" Content="DelegateCommand" Margin="10"/>
             <Button Command="{Binding ObservesPropertyCommand}" Content="DelegateCommand ObservesProperty" Margin="10"/>
             <Button Command="{Binding ObservesCanExecuteCommand}" Content="DelegateCommand ObservesCanExecute" Margin="10"/>
             <Button Command="{Binding ExecuteGenericCommand}" CommandParameter="Passed Parameter" Content="DelegateCommand Generic" Margin="10"/>
             <TextBlock Text="{Binding UpdateText}" Margin="10" FontSize="30"/>
-        </StackPanel>
+        </StackPanel>-->
     </DockPanel>
 </Window>
